@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE update>
+<!-- 
+<update>
+    <version>1.0</version>
+    <main-file>unicentaopos.jar</main-file>
+    <dependencies>
+        <dependency>libs/unicentaopos.jar</dependency>
+    </dependencies>
+</update>
+-->
+<update>
+    <version>0.0</version>
+    <main-file></main-file>
+</update>
