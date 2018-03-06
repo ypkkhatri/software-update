@@ -3,7 +3,7 @@
 
 Software update library for swing application
 
-Structure
+## File Structure
 ```
 update/
       update.xml
