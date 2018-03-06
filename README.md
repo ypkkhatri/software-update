@@ -31,6 +31,10 @@ Put version files into server and dependencies in `libs` folder at server with b
 Below is the code which you need to run from your application, that will exit you current app and start `sw-update` app in new JVM
 `AppUtil.java`
 ```
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AppUtils { 
     public static void updateLaunch(String appName, String currentVersion, String updateXmlUrl) {
         String[] run = {"java", "-jar", "libs/sw-update-1.0.jar", appName, currentVersion, updateXmlUrl};
@@ -38,7 +42,7 @@ public class AppUtils {
             Runtime.getRuntime().exec(run);
             System.exit(0);
         } catch (IOException ex) {
-            LogManager.getLogger(AppUtils.class).error(ex);
+            Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
