@@ -197,21 +197,26 @@ public class JMainDialog extends javax.swing.JDialog {
                 setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
                 jProgressBar1.setMinimum(0);
-                jProgressBar1.setMaximum(update.getDependencies().size() + 1);
+                jProgressBar1.setMaximum(update.getDependencies().size() + update.getMainFiles().size() + 1);
 
+                int c = 1;
                 for (int i = 0; i < update.getDependencies().size(); i++) {
                     Dependency d = update.getDependencies().get(i);
                     String to = "libs/" + d.getFile().substring(d.getFile().lastIndexOf("/") + 1);
 
                     FileUtils.download(d.getFile(), to, true);
 
-                    jProgressBar1.setValue(i);
+                    jProgressBar1.setValue(c++);
                 }
 
-                String to = update.getMainFile().substring(update.getMainFile().lastIndexOf("/") + 1);
-                FileUtils.download(update.getMainFile(), to, false);
-                JOptionPane.showMessageDialog(null, to);
-                jProgressBar1.setValue(update.getDependencies().size() + 1);
+                for (int i = 0; i < update.getMainFiles().size(); i++) {
+                    String mainFile = update.getMainFiles().get(i);
+                    String toFileName = mainFile.substring(mainFile.lastIndexOf("/") + 1).replaceAll("%20", " ");
+                    FileUtils.download(mainFile, toFileName, false);
+                    jProgressBar1.setValue(c++);
+                }
+
+                jProgressBar1.setValue(c++);
 
                 JOptionPane.showMessageDialog(this, "Software updated with new version, restart application to see changes");
                 System.exit(0);
@@ -219,6 +224,7 @@ public class JMainDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(JMainDialog.this, ex.toString());
             }
             cancelButton.setEnabled(true);
+            updateButton.setEnabled(true);
         }).start();
     }
 

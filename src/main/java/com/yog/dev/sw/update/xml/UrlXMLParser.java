@@ -5,6 +5,9 @@ import com.yog.dev.sw.update.beans.Update;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -35,9 +38,16 @@ public final class UrlXMLParser {
         Element eElement = (Element) updateNode;
 
         String version = eElement.getElementsByTagName("version").item(0).getTextContent();
-        String mainFile = baseUrl + eElement.getElementsByTagName("main-file").item(0).getTextContent();
-        long mainFileSize = getFileSize(new URL(mainFile));
-        Update update = new Update(version, mainFile, mainFileSize);
+        long mainFileSize = 0;
+
+        List<String> mainFiles = new ArrayList<>();
+        int l = eElement.getElementsByTagName("main-file").getLength();
+        for (int i = 0; i < l; i++) {
+            String mainFile = baseUrl + eElement.getElementsByTagName("main-file").item(i).getTextContent().replaceAll(" ", "%20");
+            mainFileSize += getFileSize(new URL(mainFile));
+            mainFiles.add(mainFile);
+        }
+        Update update = new Update(version, mainFiles, mainFileSize);
 
         Element depEle = (Element) eElement.getElementsByTagName("dependencies").item(0);
         if (depEle != null) {

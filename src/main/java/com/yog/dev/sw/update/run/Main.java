@@ -9,6 +9,7 @@ import com.yog.dev.sw.update.ui.JMainDialog;
 public class Main {
 
     public static void main(String[] args) {
+//        final String[] args = new String[] {"Test", "49", "http://techmwh.com/updates/obutech/update.xml"};
         if (args == null || args.length < 3) {
             javax.swing.JOptionPane.showMessageDialog(null, "Invalid input length");
             return;

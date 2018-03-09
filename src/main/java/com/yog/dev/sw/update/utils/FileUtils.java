@@ -1,6 +1,5 @@
 package com.yog.dev.sw.update.utils;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.channels.Channels;

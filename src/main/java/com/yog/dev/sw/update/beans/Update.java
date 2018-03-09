@@ -10,21 +10,21 @@ import java.util.List;
 public class Update {
 
     private final String version;
-    private final String mainFile;
+    private final List<String> mainFiles;
     private final List<Dependency> dependencies;
     private final long size;
     private double fullSize;
 
-    public Update(String version, String mainFile, long size) {
+    public Update(String version, List<String> mainFiles, long size) {
         this.version = version;
-        this.mainFile = mainFile;
+        this.mainFiles = mainFiles;
         this.dependencies = new ArrayList<>();
         this.size = size;
         this.fullSize = -1;
     }
 
-    public String getMainFile() {
-        return mainFile;
+    public List<String> getMainFiles() {
+        return mainFiles;
     }
 
     public String getVersion() {
