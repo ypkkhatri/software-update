@@ -3,6 +3,7 @@ package com.yog.dev.sw.update.ui;
 import com.yog.dev.sw.update.beans.Dependency;
 import com.yog.dev.sw.update.beans.Update;
 import com.yog.dev.sw.update.utils.FileUtils;
+import com.yog.dev.sw.update.utils.PropertyUtils;
 import com.yog.dev.sw.update.xml.UrlXMLParser;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
@@ -13,16 +14,22 @@ import javax.swing.JOptionPane;
  */
 public class JMainDialog extends javax.swing.JDialog {
 
-    public static final String VERSION = "V" + "1.0";
+    private String version;
     private final String appName;
     private final String currentVersion;
     private final String updateXmlUrl;
+    private final String destLibDir;
     private Update update;
 
     public JMainDialog(String appName, String currentVersion, String updateXmlUrl) {
+        this(appName, currentVersion, updateXmlUrl, "libs/");
+    }
+
+    public JMainDialog(String appName, String currentVersion, String updateXmlUrl, String destLibDir) {
         this.appName = appName;
         this.currentVersion = currentVersion;
         this.updateXmlUrl = updateXmlUrl;
+        this.destLibDir = destLibDir;
         initComponents();
     }
 
@@ -44,7 +51,7 @@ public class JMainDialog extends javax.swing.JDialog {
         updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Software Update " + VERSION);
+        setTitle("Software Update");
         setModal(true);
         setResizable(false);
 
@@ -80,9 +87,7 @@ public class JMainDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-                    .addGroup(progressPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, 0)))
+                    .addComponent(jLabel8))
                 .addContainerGap())
         );
         progressPanelLayout.setVerticalGroup(
@@ -174,7 +179,9 @@ public class JMainDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     public void init() {
-        setTitle(appName + " Update");
+        this.version = PropertyUtils.getValue("app.version");
+        
+        setTitle(appName + " Update - SUv" + this.version);
         jLabel5.setText(currentVersion);
 
         getRootPane().setDefaultButton(updateButton);
@@ -202,7 +209,7 @@ public class JMainDialog extends javax.swing.JDialog {
                 int c = 1;
                 for (int i = 0; i < update.getDependencies().size(); i++) {
                     Dependency d = update.getDependencies().get(i);
-                    String to = "libs/" + d.getFile().substring(d.getFile().lastIndexOf("/") + 1);
+                    String to = this.destLibDir + d.getFile().substring(d.getFile().lastIndexOf("/") + 1);
 
                     FileUtils.download(d.getFile(), to, true);
 

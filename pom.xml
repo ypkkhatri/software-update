@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yog.dev</groupId>
     <artifactId>sw-update</artifactId>
-    <version>1.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,7 +40,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-<!--                            <classpathPrefix>libs/</classpathPrefix>-->
+                            <!--                            <classpathPrefix>libs/</classpathPrefix>-->
                             <mainClass>
                                 com.yog.dev.sw.update.run.Main
                             </mainClass>
@@ -49,5 +49,12 @@
                 </configuration>
             </plugin>
         </plugins>
+        
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>   
     </build>
 </project>
