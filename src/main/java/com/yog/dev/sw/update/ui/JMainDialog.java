@@ -5,6 +5,7 @@ import com.yog.dev.sw.update.beans.Update;
 import com.yog.dev.sw.update.utils.FileUtils;
 import com.yog.dev.sw.update.utils.PropertyUtils;
 import com.yog.dev.sw.update.xml.UrlXMLParser;
+import java.io.StringWriter;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
@@ -29,7 +30,7 @@ public class JMainDialog extends javax.swing.JDialog {
         this.appName = appName;
         this.currentVersion = currentVersion;
         this.updateXmlUrl = updateXmlUrl;
-        this.destLibDir = destLibDir;
+        this.destLibDir = destLibDir.endsWith("/") ? destLibDir : destLibDir + "/";
         initComponents();
     }
 
@@ -192,7 +193,10 @@ public class JMainDialog extends javax.swing.JDialog {
             jLabel6.setText(update.getVersion());
             jLabel7.setText(numberFormat(update.getFullSize()) + " MB");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            StringWriter sw = new StringWriter();
+            java.io.PrintWriter pw = new java.io.PrintWriter(sw);
+            ex.printStackTrace(pw);
+            JOptionPane.showMessageDialog(this, sw.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -228,6 +232,9 @@ public class JMainDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Software updated with new version, restart application to see changes");
                 System.exit(0);
             } catch (Exception ex) {
+                StringWriter sw = new StringWriter();
+                java.io.PrintWriter pw = new java.io.PrintWriter(sw);
+                ex.printStackTrace(pw);
                 JOptionPane.showMessageDialog(JMainDialog.this, ex.toString());
             }
             cancelButton.setEnabled(true);

@@ -15,7 +15,12 @@ public class Main {
             return;
         }
         java.awt.EventQueue.invokeLater(() -> {
-            JMainDialog dialog = new JMainDialog(args[0], args[1], args[2]);
+            JMainDialog dialog;
+            if(args.length >= 4) {
+                dialog = new JMainDialog(args[0], args[1], args[2], args[3]);
+            } else {
+                dialog = new JMainDialog(args[0], args[1], args[2]);
+            }
             dialog.init();
             dialog.setVisible(true);
         });
