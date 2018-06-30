@@ -8,9 +8,8 @@ Software update library for swing application
 update/
       update.xml
       main.jar
-      libs/
-          test1.jar
-          test2.jar
+      test1.jar
+      test2.jar
 ```
 
 Put version files into server and dependencies in `libs` folder at server with below XML file `update.xml` 
