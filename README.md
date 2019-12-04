@@ -3,13 +3,13 @@
 
 Software update library for swing application
 
-## File Structure
+## Server File Directory Structure
 ```
 update/
       update.xml
       main.jar
-      test1.jar
-      test2.jar
+      lib1.jar
+      lib2.jar
 ```
 
 Put version files into server and dependencies in `libs` folder at server with below XML file `update.xml` 
@@ -31,12 +31,16 @@ Below is the code which you need to run from your application, that will exit yo
 `AppUtil.java`
 ```
 import java.io.IOException;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AppUtils { 
+public class AppUtils {
     public static void updateLaunch(String appName, String currentVersion, String updateXmlUrl) {
-        String[] run = {"java", "-jar", "libs/sw-update-1.0.jar", appName, currentVersion, updateXmlUrl};
+        String jarName = getJarName(com.yog.dev.sw.update.ui.JMainDialog.class);
+        String[] run = {"java", "-jar", "lib/" + jarName, appName, currentVersion, updateXmlUrl, "lib/"};
         try {
             Runtime.getRuntime().exec(run);
             System.exit(0);
@@ -44,9 +48,19 @@ public class AppUtils {
             Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private static String getJarName(Class _class) {
+        ProtectionDomain protectionDomain = _class.getProtectionDomain();
+        CodeSource codeSource = protectionDomain.getCodeSource();
+        URL location = codeSource.getLocation();
+        
+        String path = location.toString();
+        return path.substring(path.lastIndexOf("/") + 1);
+    }
 }
 ```
 
+Call below code form your update button:
 ```
 AppUtils.updateLaunch("Your App Name", "0.1", "http://localhost/update/update.xml");
 ```
