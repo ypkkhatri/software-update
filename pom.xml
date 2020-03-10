@@ -5,12 +5,39 @@
     <artifactId>sw-update</artifactId>
     <version>1.1.1</version>
     <packaging>jar</packaging>
+    <name>Software Update GUI Package</name>
+    <description>This library is used for desktop based swing application online update. It's useful when you're releasing swing application and wants to deploy to client side.</description>
+    <url>https://github.com/ypkkhatri/software-update</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
-    
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:ypkkhatri/software-update.git</connection>
+        <developerConnection>scm:git:git@github.com:ypkkhatri/software-update.git</developerConnection>
+        <url>git@github.com:ypkkhatri/software-update.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>yougeshwarkhatri</id>
+            <name>Yougeshwar Khatri</name>
+        </developer>
+    </developers>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <build>
         <finalName>sw-update</finalName>
         <plugins>

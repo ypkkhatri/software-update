@@ -24,3 +24,6 @@ hs_err_pid*
 nbactions.xml
 nbactions-release-profile.xml
 nb-configuration.xml
+.classpath
+.project
+.settings/
