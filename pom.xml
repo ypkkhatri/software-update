@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yog.dev</groupId>
     <artifactId>sw-update</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
     <name>Software Update GUI Package</name>
     <description>This library is used for desktop based swing application online update. It's useful when you're releasing swing application and wants to deploy to client side.</description>
